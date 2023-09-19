@@ -6,18 +6,19 @@ This repository contains documentation for Docker.
 
 Docker is a tool designed to make it easier to create, deploy, and run applications by using containers. Containers allow a developer to package up an application with all of the parts it needs, such as libraries and other dependencies, and deploy it as one package.
 
-![What it can do](image.png)
+![What it can do](./attachements/image.png)
 
 ## Why you need Docker?
 
 Docker is a tool that allows developers, sys-admins etc. to easily deploy their applications in a sandbox (called containers) to run on the host operating system i.e. Linux. The key benefit of Docker is that it allows users to package an application with all of its dependencies into a standardized unit for software development. Unlike virtual machines, containers do not have the high overhead and hence enable more efficient usage of the underlying system and resources.
-![Why you need docker](image-2.png)
+![Why you need docker](./attachements/image-2.png)
 
 ## Terminology
 
 - **Docker Container**: Docker Container is an isolated environment that runs on top of the host operating system.They can have there own process, network interfaces, mounts etc except for the kernel.Docker container is simply an instance of a Docker image. It is a lightweight, standalone, executable package of software that includes everything needed to run an application: code, runtime, system tools, system libraries and settings.
-![Alt text](image-3.png)
+![Alt text](./attachements/image-3.png)
 - **Docker Image**: The file system and configuration of an application which are used to create Docker containers. Docker images are built from layers of other images. Docker images are stored in a Docker registry.
+- **Docker Host/Docker Engine**: The physical or virtual machine on which Docker is installed. Docker Engine runs on the Docker host.
 - **Docker Daemon**: The background service running on the host that manages building, running and distributing Docker containers.
 - **Docker Client**: The command line tool that allows the user to interact with the Docker daemon.
 - **Docker Registry**: A Docker registry is a repository for Docker images. Docker clients connect to registries to download (“pull”) images for use or upload (“push”) images that they have built.
@@ -35,7 +36,7 @@ Docker is a tool that allows developers, sys-admins etc. to easily deploy their 
 | Containers share the host OS kernel | Virtual machines have their own OS kernel |
 | Containers are less secure | Virtual machines are more secure |
 
-![Alt text](image-4.png)
+![Alt text](./attachements/image-4.png)
 
 ## Docker Installation
 
@@ -74,6 +75,8 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io
 | **docker rmi** | Remove one or more images | `docker rmi [OPTIONS] IMAGE [IMAGE...]` | `docker rmi 1a2b3c4d5e6f` | -f: Force removal of the image |
 | **docker pull** | Pull an image or a repository from a registry | `docker pull [OPTIONS] NAME[:TAG|@DIGEST]` | `docker pull ubuntu` |
 | **docker exec** | Run a command in a running container | `docker exec [OPTIONS] CONTAINER COMMAND [ARG...]` | `docker exec -it 1a2b3c4d5e6f bash` | -i: Keep STDIN open even if not attached -t: Allocate a pseudo-TTY |
+| **docker inspect** | Return low-level information on Docker objects | `docker inspect [OPTIONS] NAME|ID [NAME|ID...]` | `docker inspect 1a2b3c4d5e6f` | -f: Format the output using the given Go template |
+| **docker logs** | Fetch the logs of a container | `docker logs [OPTIONS] CONTAINER` | `docker logs 1a2b3c4d5e6f` | -f: Follow log output -t: Show timestamps |
 
 ## Run container in background
 
@@ -92,8 +95,6 @@ docker run -it ubuntu bash
 ```
 
 ## Sample Queries
-
-# Sample Queries
 
 1- Count the number of running containers.
 
@@ -121,3 +122,9 @@ docker rmi $(docker images -q)
 ```
 
 Explanation: docker images -q lists all images and docker rmi removes all images.
+
+4- Run an instance of kodekloud/simple-webapp with a tag blue and map port 8080 on the container to 38282 on the host.
+
+```bash
+docker run -d -p 38282:8080 kodekloud/simple-webapp:blue
+```
