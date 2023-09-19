@@ -16,7 +16,7 @@ Docker is a tool that allows developers, sys-admins etc. to easily deploy their 
 ## Terminology
 
 - **Docker Container**: Docker Container is an isolated environment that runs on top of the host operating system.They can have there own process, network interfaces, mounts etc except for the kernel.Docker container is simply an instance of a Docker image. It is a lightweight, standalone, executable package of software that includes everything needed to run an application: code, runtime, system tools, system libraries and settings.
-![Alt text](./attachements/image-3.png)
+  ![Alt text](./attachements/image-3.png)
 - **Docker Image**: The file system and configuration of an application which are used to create Docker containers. Docker images are built from layers of other images. Docker images are stored in a Docker registry.
 - **Docker Host/Docker Engine**: The physical or virtual machine on which Docker is installed. Docker Engine runs on the Docker host.
 - **Docker Daemon**: The background service running on the host that manages building, running and distributing Docker containers.
@@ -27,14 +27,14 @@ Docker is a tool that allows developers, sys-admins etc. to easily deploy their 
 
 ## Docker vs Virtual Machine
 
-| Docker | Virtual Machines |
-| --- | --- |
-| Containers are much lighter | Need to emulate an operating system or hardware virtualization |
-| Containers are portable | Virtual machines are not portable |
-| Containers are faster to start | Virtual machines are slower to start |
-| Containers are more flexible | Virtual machines are less flexible |
-| Containers share the host OS kernel | Virtual machines have their own OS kernel |
-| Containers are less secure | Virtual machines are more secure |
+| Docker                              | Virtual Machines                                               |
+| ----------------------------------- | -------------------------------------------------------------- |
+| Containers are much lighter         | Need to emulate an operating system or hardware virtualization |
+| Containers are portable             | Virtual machines are not portable                              |
+| Containers are faster to start      | Virtual machines are slower to start                           |
+| Containers are more flexible        | Virtual machines are less flexible                             |
+| Containers share the host OS kernel | Virtual machines have their own OS kernel                      |
+| Containers are less secure          | Virtual machines are more secure                               |
 
 ![Alt text](./attachements/image-4.png)
 
@@ -65,18 +65,18 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io
 
 ## Docker Commands
 
-| Name |Description |Syntax | Example | Extra Info |
-| --- | --- | --- | --- | --- |
-| **docker run** | Run a command in a new container | `docker run [OPTIONS] IMAGE [COMMAND] [ARG...]` | `docker run -it ubuntu bash` | If the image is not availble then it will pull from docker hub |
-| **docker ps** | List containers | `docker ps [OPTIONS]` | `docker ps -a` | -a: Show all containers (default shows just running) |
-| **docker stop** | Stop one or more running containers | `docker stop [OPTIONS] CONTAINER [CONTAINER...]` | `docker stop 1a2b3c4d5e6f` | -t: Seconds to wait for stop before killing it (default 10) |
-| **docker rm** | Remove one or more containers | `docker rm [OPTIONS] CONTAINER [CONTAINER...]` | `docker rm 1a2b3c4d5e6f` | -f: Force the removal of a running container (uses SIGKILL) |
-| **docker images** | List images | `docker images [OPTIONS] [REPOSITORY[:TAG]]` | `docker images` | -a: Show all images (default hides intermediate images) |
-| **docker rmi** | Remove one or more images | `docker rmi [OPTIONS] IMAGE [IMAGE...]` | `docker rmi 1a2b3c4d5e6f` | -f: Force removal of the image |
-| **docker pull** | Pull an image or a repository from a registry | `docker pull [OPTIONS] NAME[:TAG|@DIGEST]` | `docker pull ubuntu` |
-| **docker exec** | Run a command in a running container | `docker exec [OPTIONS] CONTAINER COMMAND [ARG...]` | `docker exec -it 1a2b3c4d5e6f bash` | -i: Keep STDIN open even if not attached -t: Allocate a pseudo-TTY |
-| **docker inspect** | Return low-level information on Docker objects | `docker inspect [OPTIONS] NAME|ID [NAME|ID...]` | `docker inspect 1a2b3c4d5e6f` | -f: Format the output using the given Go template |
-| **docker logs** | Fetch the logs of a container | `docker logs [OPTIONS] CONTAINER` | `docker logs 1a2b3c4d5e6f` | -f: Follow log output -t: Show timestamps |
+| Name               | Description                                    | Syntax                                             | Example                             | Extra Info                                                         |
+| ------------------ | ---------------------------------------------- | -------------------------------------------------- | ----------------------------------- | ------------------------------------------------------------------ | ----------------------------- | ------------------------------------------------- |
+| **docker run**     | Run a command in a new container               | `docker run [OPTIONS] IMAGE [COMMAND] [ARG...]`    | `docker run -it ubuntu bash`        | If the image is not availble then it will pull from docker hub     |
+| **docker ps**      | List containers                                | `docker ps [OPTIONS]`                              | `docker ps -a`                      | -a: Show all containers (default shows just running)               |
+| **docker stop**    | Stop one or more running containers            | `docker stop [OPTIONS] CONTAINER [CONTAINER...]`   | `docker stop 1a2b3c4d5e6f`          | -t: Seconds to wait for stop before killing it (default 10)        |
+| **docker rm**      | Remove one or more containers                  | `docker rm [OPTIONS] CONTAINER [CONTAINER...]`     | `docker rm 1a2b3c4d5e6f`            | -f: Force the removal of a running container (uses SIGKILL)        |
+| **docker images**  | List images                                    | `docker images [OPTIONS] [REPOSITORY[:TAG]]`       | `docker images`                     | -a: Show all images (default hides intermediate images)            |
+| **docker rmi**     | Remove one or more images                      | `docker rmi [OPTIONS] IMAGE [IMAGE...]`            | `docker rmi 1a2b3c4d5e6f`           | -f: Force removal of the image                                     |
+| **docker pull**    | Pull an image or a repository from a registry  | `docker pull [OPTIONS] NAME[:TAG                   | @DIGEST]`                           | `docker pull ubuntu`                                               |
+| **docker exec**    | Run a command in a running container           | `docker exec [OPTIONS] CONTAINER COMMAND [ARG...]` | `docker exec -it 1a2b3c4d5e6f bash` | -i: Keep STDIN open even if not attached -t: Allocate a pseudo-TTY |
+| **docker inspect** | Return low-level information on Docker objects | `docker inspect [OPTIONS] NAME                     | ID [NAME                            | ID...]`                                                            | `docker inspect 1a2b3c4d5e6f` | -f: Format the output using the given Go template |
+| **docker logs**    | Fetch the logs of a container                  | `docker logs [OPTIONS] CONTAINER`                  | `docker logs 1a2b3c4d5e6f`          | -f: Follow log output -t: Show timestamps                          |
 
 ## Run container in background
 
@@ -93,6 +93,15 @@ To run a container in interactive mode, use -it option.
 ```bash
 docker run -it ubuntu bash
 ```
+
+## Task 001
+
+- [ ] Run a ubuntu container in detached mode and check the version of ubuntu installed.
+- [ ] Run a Ngix container in detached mode and map port 80 on the container to port 8080 on the host.
+- [ ] Run multiple instance of Nginx on same container port and see what you observe.
+- [ ] Pull the latest version of the centos image and run a container in interactive mode, then execute a shell (e.g., /bin/bash) inside the container. Explore the CentOS environment from within the container.
+- [ ] Run a MySQL container in detached mode, set the environment variables for the root password and database name, and expose port 3306 on the container. Connect to the MySQL server from your host machine using a MySQL client.
+- [ ] Run a WordPress container in detached mode, using environment variables to configure the database connection. Access the WordPress web application in your web browser and complete the initial setup.
 
 ## Sample Queries
 
