@@ -1,6 +1,16 @@
 # Docker
 
-This repository contains documentation for Docker.
+This repository contains documentation for Docker. This is good for beginners who want to learn docker.
+
+In this repository, you will have a basic understanding of docker and its commands. You will also learn how to run a container in detached mode, interactive mode, and how to map ports.
+
+I have also added some sample queries which will help you to understand the docker commands.
+
+For testing your knowledge, I have added some tasks. You can try to solve them.
+
+If you have any suggestions or queries, feel free to contact me on [LinkedIn](https://www.linkedin.com/in/sanket-joshi-63b074144/) or make a pull request.
+
+Cheers and happy learning!
 
 ## What is Docker?
 
@@ -65,18 +75,18 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io
 
 ## Docker Commands
 
-| Name               | Description                                    | Syntax                                             | Example                             | Extra Info                                                         |
-| ------------------ | ---------------------------------------------- | -------------------------------------------------- | ----------------------------------- | ------------------------------------------------------------------ | ----------------------------- | ------------------------------------------------- |
-| **docker run**     | Run a command in a new container               | `docker run [OPTIONS] IMAGE [COMMAND] [ARG...]`    | `docker run -it ubuntu bash`        | If the image is not availble then it will pull from docker hub     |
-| **docker ps**      | List containers                                | `docker ps [OPTIONS]`                              | `docker ps -a`                      | -a: Show all containers (default shows just running)               |
-| **docker stop**    | Stop one or more running containers            | `docker stop [OPTIONS] CONTAINER [CONTAINER...]`   | `docker stop 1a2b3c4d5e6f`          | -t: Seconds to wait for stop before killing it (default 10)        |
-| **docker rm**      | Remove one or more containers                  | `docker rm [OPTIONS] CONTAINER [CONTAINER...]`     | `docker rm 1a2b3c4d5e6f`            | -f: Force the removal of a running container (uses SIGKILL)        |
-| **docker images**  | List images                                    | `docker images [OPTIONS] [REPOSITORY[:TAG]]`       | `docker images`                     | -a: Show all images (default hides intermediate images)            |
-| **docker rmi**     | Remove one or more images                      | `docker rmi [OPTIONS] IMAGE [IMAGE...]`            | `docker rmi 1a2b3c4d5e6f`           | -f: Force removal of the image                                     |
-| **docker pull**    | Pull an image or a repository from a registry  | `docker pull [OPTIONS] NAME[:TAG                   | @DIGEST]`                           | `docker pull ubuntu`                                               |
-| **docker exec**    | Run a command in a running container           | `docker exec [OPTIONS] CONTAINER COMMAND [ARG...]` | `docker exec -it 1a2b3c4d5e6f bash` | -i: Keep STDIN open even if not attached -t: Allocate a pseudo-TTY |
-| **docker inspect** | Return low-level information on Docker objects | `docker inspect [OPTIONS] NAME                     | ID [NAME                            | ID...]`                                                            | `docker inspect 1a2b3c4d5e6f` | -f: Format the output using the given Go template |
-| **docker logs**    | Fetch the logs of a container                  | `docker logs [OPTIONS] CONTAINER`                  | `docker logs 1a2b3c4d5e6f`          | -f: Follow log output -t: Show timestamps                          |
+| Name |Description |Syntax | Example | Extra Info |
+| --- | --- | --- | --- | --- |
+| **docker run** | Run a command in a new container | `docker run [OPTIONS] IMAGE [COMMAND] [ARG...]` | `docker run -it ubuntu bash` | If the image is not availble then it will pull from docker hub |
+| **docker ps** | List containers | `docker ps [OPTIONS]` | `docker ps -a` | -a: Show all containers (default shows just running) |
+| **docker stop** | Stop one or more running containers | `docker stop [OPTIONS] CONTAINER [CONTAINER...]` | `docker stop 1a2b3c4d5e6f` | -t: Seconds to wait for stop before killing it (default 10) |
+| **docker rm** | Remove one or more containers | `docker rm [OPTIONS] CONTAINER [CONTAINER...]` | `docker rm 1a2b3c4d5e6f` | -f: Force the removal of a running container (uses SIGKILL) |
+| **docker images** | List images | `docker images [OPTIONS] [REPOSITORY[:TAG]]` | `docker images` | -a: Show all images (default hides intermediate images) |
+| **docker rmi** | Remove one or more images | `docker rmi [OPTIONS] IMAGE [IMAGE...]` | `docker rmi 1a2b3c4d5e6f` | -f: Force removal of the image |
+| **docker pull** | Pull an image or a repository from a registry | `docker pull [OPTIONS] NAME[:TAG|@DIGEST]` | `docker pull ubuntu` |
+| **docker exec** | Run a command in a running container | `docker exec [OPTIONS] CONTAINER COMMAND [ARG...]` | `docker exec -it 1a2b3c4d5e6f bash` | -i: Keep STDIN open even if not attached -t: Allocate a pseudo-TTY |
+| **docker inspect** | Return low-level information on Docker objects | `docker inspect [OPTIONS] NAME|ID [NAME|ID...]` | `docker inspect 1a2b3c4d5e6f` | -f: Format the output using the given Go template |
+| **docker logs** | Fetch the logs of a container | `docker logs [OPTIONS] CONTAINER` | `docker logs 1a2b3c4d5e6f` | -f: Follow log output -t: Show timestamps |
 
 ## Run container in background
 
