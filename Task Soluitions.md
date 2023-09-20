@@ -46,3 +46,14 @@ This Documentation contains solutions to the tasks given in the [Readme.md](./RE
 
     Explanation: -e option is used to set the environment variables for the root password and database name and -p option is used to expose port 3306 on the container.
 - Run a WordPress container in detached mode, using environment variables to configure the database connection. Access the WordPress web application in your web browser and complete the initial setup.
+
+## Task 002
+
+Solution to the task 002 is available in the [Task002](./TaskSolutions/Task002/) folder.
+
+Run the following command to start the task 002.
+
+```bash
+ docker build . -t task002
+ docker run -d -p 8080:80 task002
+```

@@ -114,6 +114,79 @@ docker run -it ubuntu bash
 - [ ] Run a MySQL container in detached mode, set the environment variables for the root password and database name, and expose port 3306 on the container. Connect to the MySQL server from your host machine using a MySQL client.
 - [ ] Run a WordPress container in detached mode, using environment variables to configure the database connection. Access the WordPress web application in your web browser and complete the initial setup.
 
+## Docker Images
+
+Docker Images are the building blocks of Docker containers. In other words, Docker container is simply an instance of a Docker image. It is a lightweight, standalone, executable package of software that includes everything needed to run an application: code, runtime, system tools, system libraries and settings.
+
+But before you start you need to ask yourself a question, What am I containerizing? Is it a web application, a database, a web server, or something else? Once you have the answer to this question, you can start building your Docker image.
+
+For Instance in case you want to deploy simple html on NGINX web server,think about the following:
+
+- What is the base image I need to use?
+- What are the dependencies I need to install?
+- What are the commands I need to run to install the dependencies?
+- What are the commands I need to run to start the web server?
+- What port do I need to expose?
+- How do I copy the html files to the container?
+
+### How to create your own Docker Image?
+
+To create your own Docker image, you need to create a Dockerfile. A Dockerfile is a text-based script that contains all the commands a user could call on the command line to assemble an image.
+
+To create a Dockerfile, you need to create a file named Dockerfile with no extension. The Dockerfile contains all the instructions needed to create a new image.
+
+### Dockerfile Instructions
+
+| Instruction | Description |
+| --- | --- |
+| FROM | Sets the Base Image for subsequent instructions. |
+| MAINTAINER | Set the Author field of the generated images. |
+| RUN | Execute any commands in a new layer on top of the current image and commit the results. |
+| CMD | Provide defaults for an executing container. |
+| EXPOSE | Informs Docker that the container listens on the specified network ports at runtime. |
+| ENV | Sets environment variable. |
+| ADD | Copies new files, directories or remote file to container. Invalidates caches. |
+| COPY | Copies new files or directories to container. By default this copies as root regardless of the USER/WORKDIR settings. Use --chown=<user>:<group> to give ownership to another user/group. |
+| ENTRYPOINT | Configures a container that will run as an executable. |
+| VOLUME | Creates a mount point for externally mounted volumes or other containers. |
+| USER | Sets the user name for following RUN / CMD / ENTRYPOINT commands. |
+| WORKDIR | Sets the working directory. |
+| ARG | Defines a build-time variable. |
+
+![How to create your own Image](./attachements/image12.png)
+
+On the left side, you can see the Dockerfile instructions and on the right side, you can see arguments for each instruction.
+
+![Dockerfile](./attachements/image123.png)
+
+### Layered Architecture
+
+Docker images are built from layers of other images. A Dockerfile starts with a base image. Each instruction in the Dockerfile creates a new layer in the image. Each layer is only a set of differences from the layer before it. The layers are stacked on top of each other. When you create a new container, you add a new writable layer on top of the underlying layers. This layer is often called the “container layer”. All changes made to the running container, such as writing new files, modifying existing files, and deleting files, are written to this thin writable container layer.
+
+![Alt text](./attachements/image12345.png)
+
+### Build Docker Image
+
+To build a Docker image, you need to run the docker build command. The docker build command builds Docker images from a Dockerfile and a “context”. A build’s context is the set of files located in the specified PATH or URL. The build process can refer to any of the files in the context. For example, your build can use a COPY instruction to reference a file in the context.
+
+```bash
+docker build .
+```
+
+Explanation: The above command will build an image from the Dockerfile in the current directory and tag the image as latest.
+
+### Task 002
+
+- [ ] Check the index.html from Task002_files folder.
+- [ ] Create a Dockerfile use ubuntu as base image.
+- [ ] Install nginx on the image.
+- [ ] Expose port 80 on the container.
+- [ ] Before going further, build the image and run the container to check if everything is working fine till here.
+- [ ] Run the docker container in detached mode and map port 80 on the container to port 8080 on the host and check if you are able to view default nginx page on your browser.
+- [ ] Now Modify the dockerfile to copy the index.html file to the container at /usr/share/nginx/html location.
+- [ ] Build the image and run the container in detached mode and map port 80 on the container to port 8080 on the host and check if you are able to view the index.html page on your browser.
+
+
 ## Sample Queries
 
 1- Count the number of running containers.
