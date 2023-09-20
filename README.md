@@ -10,6 +10,7 @@ For testing your knowledge, I have added some tasks. You can try to solve them.
 
 If you have any suggestions or queries, feel free to contact me on [LinkedIn](https://www.linkedin.com/in/sanket-joshi-63b074144/) or make a pull request.
 
+For all Task Solutions, please refer to [Task Solutions](./Task%20Soluitions.md).
 Cheers and happy learning!
 
 ## What is Docker?
