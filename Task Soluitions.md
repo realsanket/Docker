@@ -49,11 +49,25 @@ This Documentation contains solutions to the tasks given in the [Readme.md](./RE
 
 ## Task 002
 
-Solution to the task 002 is available in the [Task002](./TaskSolutions/Task002/) folder.
+- Solution to the task 002 is available in the [Task002](./TaskSolutions/Task002/) folder.
 
-Run the following command to start the task 002.
+  Run the following command to start the task 002.
 
 ```bash
  docker build . -t task002
  docker run -d -p 8080:80 task002
+```
+
+## Task 003
+
+-Run a container named blue-app using image kodekloud/simple-webapp and set the environment variable APP_COLOR to blue. Make the application available on port 38282 on the host. The application listens on port 8080
+
+```bash
+docker run -d -p 38282:8080 --name blue-app -e APP_COLOR=blue kodekloud/simple-webapp
+```
+
+- Deploy a mysql database using the mysql image and name it mysql-db.Set the database password to use db_pass123. Lookup the mysql image on Docker Hub and identify the correct environment variable to use for setting the root password.
+
+```bash
+docker run --name mysql-db1 -e MYSQL_ROOT_PASSWORD=db_pass123  mysql
 ```

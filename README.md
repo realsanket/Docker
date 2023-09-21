@@ -186,6 +186,60 @@ Explanation: The above command will build an image from the Dockerfile in the cu
 - [ ] Now Modify the dockerfile to copy the index.html file to the container at /usr/share/nginx/html location.
 - [ ] Build the image and run the container in detached mode and map port 80 on the container to port 8080 on the host and check if you are able to view the index.html page on your browser.
 
+### Environment Variables
+
+Environment variables are a set of dynamic named values that can affect the way running processes will behave on a computer. For example, a running process can query the value of the TEMP environment variable to discover a suitable location to store temporary files, or the HOME or USERPROFILE variable to find the directory structure owned by the user running the process.
+
+#### How to set Environment Variables?
+
+To set environment variables, you need to use ENV instruction in Dockerfile.
+
+```bash
+docker run -e ENVIRONMENT_VARIABLE_NAME=VALUE Environment_Variable_Name Image_Name
+```
+
+#### How to use Environment Variables?
+
+To use environment variables, you need to use $ENVIRONMENT_VARIABLE_NAME in Dockerfile.
+
+```bash
+ENV ENVIRONMENT_VARIABLE_NAME=VALUE
+```
+
+#### How to pass secure environment variables?
+
+To pass secure environment variables, you need to use --env-file option in docker run command.
+
+```bash
+docker run --env-file=ENVIRONMENT_VARIABLE_FILE_NAME Image_Name
+```
+
+##### Environment Variable File
+
+Environment variable file is a text file containing environment variables in the form of key-value pair.
+
+```bash
+ENVIRONMENT_VARIABLE_NAME=VALUE
+ENVIRONMENT_VARIABLE_NAME2=VALUE2
+#This is a comment
+```
+
+#### How to check environment variables in a container?
+
+To check environment variables in a container, you need to use docker inspect command.
+
+```bash
+docker inspect CONTAINER_NAME
+```
+
+```bash
+docker exec container env
+```
+
+### Task 003
+
+- [ ] Run a container named blue-app using image kodekloud/simple-webapp and set the environment variable APP_COLOR to blue. Make the application available on port 38282 on the host. The application listens on port 8080
+-[ ]Deploy a mysql database using the mysql image and name it mysql-db.Set the database password to use db_pass123. Lookup the mysql image on Docker Hub and identify the correct environment variable to use for setting the root password.
 
 ## Sample Queries
 
@@ -220,4 +274,10 @@ Explanation: docker images -q lists all images and docker rmi removes all images
 
 ```bash
 docker run -d -p 38282:8080 kodekloud/simple-webapp:blue
+```
+
+5- How to name docker container?
+
+```bash
+docker run --name CONTAINER_NAME IMAGE_NAME
 ```
