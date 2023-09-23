@@ -334,6 +334,11 @@ ENTRYPOINT is one of the many instructions you can write in a dockerfile. The EN
 | CMD instruction can be overridden by passing an argument to docker run command. | ENTRYPOINT instruction cannot be overridden by passing an argument to docker run command. |
 | CMD instruction can be used multiple times in a Dockerfile. | ENTRYPOINT instruction can be used only once in a Dockerfile. |
 
+### Task 004
+
+- [ ] Go to Project/Backend and build the docker image using Dockerfile. listen to any port that is available on the host.
+but container should listen on port 80. try to access the application endpoint from the host /docs.
+
 ## Sample Queries
 
 1- Count the number of running containers.

@@ -71,3 +71,14 @@ docker run -d -p 38282:8080 --name blue-app -e APP_COLOR=blue kodekloud/simple-w
 ```bash
 docker run --name mysql-db1 -e MYSQL_ROOT_PASSWORD=db_pass123  mysql
 ```
+
+## Task 004
+
+- Go to Project/Backend and build the docker image using Dockerfile. listen to any port that is available on the host.
+but container should listen on port 80. try to access the application endpoint from the host /docs.
+
+```bash
+docker build . -t task004
+docker run -d -p 8081:80 task004
+curl localhost:8081/docs
+```
