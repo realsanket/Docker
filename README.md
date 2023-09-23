@@ -239,7 +239,100 @@ docker exec container env
 ### Task 003
 
 - [ ] Run a container named blue-app using image kodekloud/simple-webapp and set the environment variable APP_COLOR to blue. Make the application available on port 38282 on the host. The application listens on port 8080
--[ ]Deploy a mysql database using the mysql image and name it mysql-db.Set the database password to use db_pass123. Lookup the mysql image on Docker Hub and identify the correct environment variable to use for setting the root password.
+- [ ] Deploy a mysql database using the mysql image and name it mysql-db.Set the database password to use db_pass123. Lookup the mysql image on Docker Hub and identify the correct environment variable to use for setting the root password.
+
+### Command and Entrypoint
+
+Unlike Virtual Machines, Docker containers do not meant to host an operating system. They are meant to host an specific task such as a web server, a database server, a web application etc.
+
+So if you run ubuntu container,it defaults to run bash shell. By default bash does not run as a service. So if you run ubuntu container in detached mode, it will exit immediately.
+
+Look at last command in the below image.
+![Alt text](./attachements/image100.png)
+
+Where as if you run nginx container or mysql container, it will run as a service. So if you run nginx container in detached mode, it will not exit immediately.
+
+Look at last command in the below image.
+![Alt text](./attachements/image101.png)
+
+So how do you speicify different commands to run when you run a container?
+
+You have to override the default command while running the container.
+
+```bash
+docker run ubuntu sleep 1000
+```
+
+in the above command, we are overriding the default command with sleep 1000.
+
+or second option is to use ubuntu as base image and specify the command in Dockerfile.
+
+```bash
+FROM ubuntu
+CMD sleep 1000
+#OR CMD ["sleep","1000"]
+```
+
+But now what if you want to sleep the container for 10 seconds instead of 1000 seconds?
+
+You have to run another container with different command.
+
+```bash
+docker run ubuntu sleep 10
+```
+
+But this is not the ideal way to do it. You have to use ENTRYPOINT instruction in Dockerfile.
+
+Entrypoint instruction allows you to specify the command to run when the container starts.
+
+```bash
+FROM ubuntu
+ENTRYPOINT ["sleep"]
+```
+
+now to run the container for 10 seconds, you have to run the container as below.
+
+```bash
+docker run ubuntu 10
+```
+
+In case of CMD line instruction it will get replaced by the command you specify while running the container but in case of ENTRYPOINT instruction it will append the command you specify while running the container.
+
+Now think what will happen if you don't pass the argument while running the container?
+
+```bash
+docker run ubuntu
+```
+
+It will throw the error as below.
+
+```bash
+sleep: missing operand
+```
+
+To fix this you will use both CMD and ENTRYPOINT instruction in Dockerfile.
+
+```bash
+FROM ubuntu
+ENTRYPOINT ["sleep"]
+CMD ["1000"]
+```
+
+#### CMD Instruction
+
+CMD in Dockerfile defines the default executable of a Docker image. It can be overridden by passing an argument to docker run command.
+
+#### ENTRYPOINT Instruction
+
+ENTRYPOINT is one of the many instructions you can write in a dockerfile. The ENTRYPOINT instruction is used to configure the executables that will always run after the container is initiated. It is similar to CMD instruction, but it cannot be overridden by passing an argument to docker run command.
+
+#### CMD VS ENTRYPOINT
+
+| CMD | ENTRYPOINT |
+| --- | --- |
+| CMD instruction is used to provide default values for the executing container. | ENTRYPOINT instruction is used to configure the executables that will always run after the container is initiated. |
+| CMD instruction can be overridden by passing an argument to docker run command. | ENTRYPOINT instruction cannot be overridden by passing an argument to docker run command. |
+| CMD instruction can be used multiple times in a Dockerfile. | ENTRYPOINT instruction can be used only once in a Dockerfile. |
 
 ## Sample Queries
 
