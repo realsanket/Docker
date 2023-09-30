@@ -339,6 +339,130 @@ ENTRYPOINT is one of the many instructions you can write in a dockerfile. The EN
 - [ ] Go to Project/Backend and build the docker image using Dockerfile. listen to any port that is available on the host.
 but container should listen on port 80. try to access the application endpoint from the host /docs.
 
+### Linking Containers
+
+Linking containers in Docker is a method to connect one container to another container. Linking containers allows containers to discover each other and securely transfer information about one container to another container.
+
+#### How to link containers?
+
+To link containers, you need to use --link option in docker run command.
+
+```bash
+docker run --link CONTAINER_NAME Image_Name
+```
+
+### Sample Docker Voting App
+
+Dockersample-voting-app is a sample voting app consisting of five components:
+
+- A Python webapp which lets you vote between two options Cats and Dogs.
+- A Redis queue which collects new votes.
+- A DotNet worker which consumes votes and stores them in a Postgres database.
+- A Postgres database.
+- A Node.js webapp which shows the results of the voting in real time.
+![Alt text](./attachements/image103.png)
+
+### Docker Compose
+
+Docker Compose is a tool for defining and running multi-container Docker applications. With Compose, you use a YAML file to configure your application’s services.
+
+For Example In case you are running sample docker voting app like this
+  
+  ```bash
+  docker run -d --name=redis redis
+  docker run -d --name=db postgres:9.4
+  docker run -d --name=vote -p 5000:80 --link redis:redis voting-app
+  docker run -d --name=result -p 5001:80 --link db:db result-app
+  docker run -d --name=worker --link redis:redis --link 
+  ```
+
+Now if you migrate this to docker compose, you can run the same application like this
+
+```yaml
+redis:
+  image: redis
+db:
+  image: postgres:9.4
+vote:
+  image: voting-app
+  ports:
+    - 5000:80
+  links:
+    - redis
+result:
+  image: result-app
+  ports:
+    - 5001:80
+  links:
+    - db
+worker:
+  image: worker-app
+  links:
+    - redis
+    - db
+```
+
+In case your image is not built yet, you can build the image using docker compose.
+
+```yaml
+redis:
+  image: redis
+db:
+  image: postgres:9.4
+vote:
+  build: ./vote
+  ports:
+    - 5000:80
+  links:
+    - redis
+result:
+  build: ./result
+  ports:
+    - 5001:80
+  links:
+    - db
+worker:
+  build: ./worker
+  links:
+    - redis
+    - db
+```
+
+#### Docker Compose Commands
+
+| Command | Description |
+| --- | --- |
+| docker-compose up | Builds, (re)creates, starts, and attaches to containers for a service. |
+| docker-compose down | Stops containers and removes containers, networks, volumes, and images created by up. |
+| docker-compose build | Builds or rebuilds services. |
+| docker-compose ps | Lists containers. |
+| docker-compose logs | View output from containers. |
+| docker-compose pull | Pulls service images. |
+| docker-compose restart | Restarts all stopped and running services. |
+| docker-compose stop | Stops running containers without removing them. |
+
+#### Docker Compose File Version
+
+| Version | Description |
+| --- | --- |
+| 1 | Version 1 is deprecated. |
+| 2 | Version 2 is supported by Docker Engine 1.10.0+. |
+| 3 | Version 3 is supported by Docker Engine 17.04.0+. |
+
+##### Differences between versions
+
+Since version 3, Docker Compose supports some new features like deploy, healthcheck, shm_size, tmpfs, etc. These features are not supported in version 2.
+
+![Alt text](./attachements/image105.png)
+
+##### Docker Compose Networking
+
+So far our app is running on a default network created by docker. But what if you want to create your own network and sepreate app into frontend and backend.
+
+To create your own network, you need to use networks option in docker-compose.yml file.
+
+![Alt text](./attachements/image106.png)
+
 ## Sample Queries
 
 1- Count the number of running containers.
