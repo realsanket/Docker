@@ -241,7 +241,7 @@ docker exec container env
 - [ ] Run a container named blue-app using image kodekloud/simple-webapp and set the environment variable APP_COLOR to blue. Make the application available on port 38282 on the host. The application listens on port 8080
 - [ ] Deploy a mysql database using the mysql image and name it mysql-db.Set the database password to use db_pass123. Lookup the mysql image on Docker Hub and identify the correct environment variable to use for setting the root password.
 
-### Command and Entrypoint
+## Command and Entrypoint
 
 Unlike Virtual Machines, Docker containers do not meant to host an operating system. They are meant to host an specific task such as a web server, a database server, a web application etc.
 
@@ -318,15 +318,15 @@ ENTRYPOINT ["sleep"]
 CMD ["1000"]
 ```
 
-#### CMD Instruction
+### CMD Instruction
 
 CMD in Dockerfile defines the default executable of a Docker image. It can be overridden by passing an argument to docker run command.
 
-#### ENTRYPOINT Instruction
+### ENTRYPOINT Instruction
 
 ENTRYPOINT is one of the many instructions you can write in a dockerfile. The ENTRYPOINT instruction is used to configure the executables that will always run after the container is initiated. It is similar to CMD instruction, but it cannot be overridden by passing an argument to docker run command.
 
-#### CMD VS ENTRYPOINT
+### CMD VS ENTRYPOINT
 
 | CMD | ENTRYPOINT |
 | --- | --- |
@@ -362,7 +362,7 @@ Dockersample-voting-app is a sample voting app consisting of five components:
 - A Node.js webapp which shows the results of the voting in real time.
 ![Alt text](./attachements/image103.png)
 
-### Docker Compose
+## Docker Compose
 
 Docker Compose is a tool for defining and running multi-container Docker applications. With Compose, you use a YAML file to configure your application’s services.
 
@@ -428,7 +428,7 @@ worker:
     - db
 ```
 
-#### Docker Compose Commands
+### Docker Compose Commands
 
 | Command | Description |
 | --- | --- |
@@ -441,7 +441,7 @@ worker:
 | docker-compose restart | Restarts all stopped and running services. |
 | docker-compose stop | Stops running containers without removing them. |
 
-#### Docker Compose File Version
+### Docker Compose File Version
 
 | Version | Description |
 | --- | --- |
@@ -449,19 +449,126 @@ worker:
 | 2 | Version 2 is supported by Docker Engine 1.10.0+. |
 | 3 | Version 3 is supported by Docker Engine 17.04.0+. |
 
-##### Differences between versions
+### Differences between versions
 
 Since version 3, Docker Compose supports some new features like deploy, healthcheck, shm_size, tmpfs, etc. These features are not supported in version 2.
 
 ![Alt text](./attachements/image105.png)
 
-##### Docker Compose Networking
+### Docker Compose Networking
 
 So far our app is running on a default network created by docker. But what if you want to create your own network and sepreate app into frontend and backend.
 
 To create your own network, you need to use networks option in docker-compose.yml file.
 
 ![Alt text](./attachements/image106.png)
+
+## Docker Registry
+
+A Docker registry is a repository for Docker images. Docker clients connect to registries to download (“pull”) images for use or upload (“push”) images that they have built.
+
+### How to push an image to Docker Hub?
+
+To push an image to Docker Hub, you need to use docker push command.
+
+Imagine you have a Dockerfile and you want to push the image to Docker Hub.
+
+First you need to login to Docker Hub.
+
+```bash
+docker login
+```
+
+Then you need to build the image.
+
+```bash
+docker build -t IMAGE_NAME .
+docker push IMAGE_NAME
+```
+
+## Docker Engine
+
+Docker Engine is a simply referred to the host machine where you are running docker commands. It is also referred to as Docker Daemon.
+
+It consists of the following:
+
+- Docker CLI: It is a client tool that allows users to interact with the Docker daemon.
+- Docker API: It is an interface that specifies interactions between multiple components.
+- Docker Daemon: It is a background service running on the host that manages building, running and distributing Docker containers.
+
+Docker CLI can be on different machine than Docker Daemon. In that case, you need to connect Docker CLI to Docker Daemon using host and port.
+
+```bash
+docker run -H=HOST:PORT IMAGE_NAME
+docker run -H=182.10.10.2:2375 nginx
+```
+
+![Alt text](./attachements/image107.png)
+
+## Docker Namespace
+
+Dockers namespace is a feature that allows you to isolate resources per process. It is a feature of the Linux kernel.
+
+### Namespaces PID
+
+PID namespace provides process isolation (PID: Process ID).Using PID namespace, you can run multiple processes in a container. Each container has its own PID namespace and its own init process.
+
+![Alt text](./attachements/image108.png)
+
+## Docker Cgroups
+
+Dockers cgroups is a feature that allows you to limit resources per process. It is a feature of the Linux kernel.
+By default, Docker containers run with unbounded resources. You can limit the amount of resources a container can use.
+
+```bash
+docker run --memory=100m --cpu=0.5 IMAGE_NAME
+```
+
+![Alt text](./attachements/image109.png)
+
+## Docker Storage
+
+Docker storage is a feature that allows you to manage storage for your containers. You can use different storage drivers to manage storage for your containers.
+
+To mount a volume, you need to use -v option in docker run command.
+
+```bash
+docker run -v HOST_PATH:CONTAINER_PATH IMAGE_NAME
+```
+
+You can also mount the directory in compose file.
+
+```yaml
+volumes:
+  - HOST_PATH:CONTAINER_PATH
+```
+
+## Docker Networking
+
+Docker networking is a feature that allows you to manage networking for your containers. You can use different network drivers to manage networking for your containers.
+
+By default docker creates three networks.
+
+- Bridge: It is a default network driver. It is a private internal network created by docker on the host. It allows containers connected to the same bridge network to communicate. It does not allow containers connected to different bridge networks to communicate.
+- Host: It is a special network driver. It removes the network isolation between the docker host and the docker containers to use the host’s networking directly.
+- None: It is a special network driver. It disables all networking for a container.
+![Alt text](./attachements/image110.png)
+
+### User Defined Networks
+
+User defined networks are networks that are created by users. You can create a user defined network using docker network create command.
+
+```bash
+docker network create --driver bridge --subnet 192.160.0.0/16 custom_nw
+```
+
+![Alt text](./attachements/image111.png)
+
+### Embedded DNS Server
+
+Docker has an embedded DNS server that provides DNS resolution among containers connected to a given user-defined network. This means that containers can refer to each other on a user-defined network by container name.
+
+![Alt text](./attachements/image112.png)
 
 ## Sample Queries
 
