@@ -570,6 +570,17 @@ Docker has an embedded DNS server that provides DNS resolution among containers 
 
 ![Alt text](./attachements/image112.png)
 
+## Why Orchestrate?
+
+Orchestration is the automated configuration, coordination, and management of computer systems and software. It is used to manage multiple containers.
+
+![Alt text](./attachements/image113.png)
+
+## Container Orchestration
+
+Container orchestration is the process of managing the lifecycles of containers, especially in large, dynamic environments. It is used to manage multiple containers.
+
+![Alt text](./attachements/image115.png)
 ## Sample Queries
 
 1- Count the number of running containers.
